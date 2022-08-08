@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { useState } from "react";
+import Router from "./components/Router";
+import firebase from "./fbase";
+import { authService } from "./fbase";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
+
+  console.log(authService.currentUser);
+
+  // setInterval(() => {
+  //   console.log(authService.currentUser);
+  // }, 2000);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router isLoggedIn={isLoggedIn} />
+      <footer>&copy; Nwitter {new Date().getFullYear()}</footer>
+    </>
   );
 }
 
