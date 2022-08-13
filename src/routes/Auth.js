@@ -9,6 +9,7 @@ export default function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newAccount, setNewAccount] = useState(true);
+  const [error, setError] = useState("");
 
   const onChange = (e) => {
     console.log(e.target.name);
@@ -35,9 +36,17 @@ export default function Auth() {
       }
       console.log(data);
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
+      setError(error.message);
     }
+
+    setEmail("");
+    setPassword("");
   };
+
+  const onToggle = () => {
+    setNewAccount((prev) => !prev)
+  }
 
   return (
     <div>
@@ -59,7 +68,9 @@ export default function Auth() {
           onChange={onChange}
         />
         <input type="submit" value={newAccount ? "Create Account" : "Log In"} />
+        {error}
       </form>
+      <span onClick={onToggle}>{newAccount ? "Sign In" : "Create Account"}</span>
       <div>
         <button>Continue with Google</button>
       </div>
