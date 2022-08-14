@@ -9,9 +9,9 @@ Promise 함수를 리턴한다.
 
 ### 2. Sign in 
 ```javascript
-signInWithEmailAndPassword(authService, email, password)
-Promise 함수를 리턴한다. 
+signInWithEmailAndPassword(authService, email, password) 
 ```
+Promise 함수를 리턴한다.
 
 ### 3. Check user's state
 Auth.onAuthStateChanged()
