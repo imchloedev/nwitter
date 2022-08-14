@@ -48,4 +48,13 @@ GoogleAuthProvider(), signInWithPopup()
 - signInWithPopup(auth, provider)
 - provider 는 인증 제공자로 AuthCredential 생성을 용이하게 하는 데 사용되는 인증 공급자를 나타내는 인터페이스이다. (either Google, Github, or Facebook)
 
+### 5. Log-out
+signOut()
+```javascript
+  const navigate = useNavigate();
+  const onLogOut = () => {
+    signOut(authService);
+    navigate("/");
+  };
 
+```
