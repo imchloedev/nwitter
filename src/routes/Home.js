@@ -1,14 +1,13 @@
 import {
   addDoc,
   collection,
-  CollectionReference,
-  getDocs,
   onSnapshot,
   orderBy,
   query,
 } from "firebase/firestore";
 import { useEffect } from "react";
 import { useState } from "react";
+import Nweet from "../components/Nweet";
 import { dbService } from "../fbase";
 
 export default function Home({ userObj }) {
@@ -27,7 +26,6 @@ export default function Home({ userObj }) {
       }));
       setNweets(nweetArray);
     });
-
   }, []);
 
   const onSubmit = async (e) => {
@@ -59,9 +57,7 @@ export default function Home({ userObj }) {
       </form>
       <div>
         {nweets.map((element) => (
-          <div key={element.id}>
-            <h4>{element.text}</h4>
-          </div>
+          <Nweet key={element.id} nweetObj={element} isOwner={element.creatorId === userObj.uid}/>
         ))}
       </div>
     </>
