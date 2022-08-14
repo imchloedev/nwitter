@@ -1,9 +1,12 @@
 import { async } from "@firebase/util";
 import { useState } from "react";
 import { authService } from "../fbase";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-
-
+import {
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 
 export default function Auth() {
   const [email, setEmail] = useState("");
@@ -30,9 +33,13 @@ export default function Auth() {
     try {
       let data;
       if (newAccount) {
-        data = await createUserWithEmailAndPassword(authService, email, password);
+        data = await createUserWithEmailAndPassword(
+          authService,
+          email,
+          password
+        );
       } else {
-        data = await signInWithEmailAndPassword(authService, email, password)
+        data = await signInWithEmailAndPassword(authService, email, password);
       }
       console.log(data);
     } catch (error) {
@@ -45,8 +52,21 @@ export default function Auth() {
   };
 
   const onToggle = () => {
-    setNewAccount((prev) => !prev)
-  }
+    setNewAccount((prev) => !prev);
+  };
+
+  const onSocialClick = async (event) => {
+    const {
+      target: { name },
+    } = event;
+    let provider;
+    if (name === "google") {
+      provider = new GoogleAuthProvider();
+    }
+
+    const data = await signInWithPopup(authService, provider);
+    console.log(data);
+  };
 
   return (
     <div>
@@ -70,9 +90,13 @@ export default function Auth() {
         <input type="submit" value={newAccount ? "Create Account" : "Log In"} />
         {error}
       </form>
-      <span onClick={onToggle}>{newAccount ? "Sign In" : "Create Account"}</span>
+      <span onClick={onToggle}>
+        {newAccount ? "Sign In" : "Create Account"}
+      </span>
       <div>
-        <button>Continue with Google</button>
+        <button name="google" onClick={onSocialClick}>
+          Continue with Google
+        </button>
       </div>
     </div>
   );
