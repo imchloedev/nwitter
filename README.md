@@ -27,7 +27,25 @@ useEffect(() => {
       setInit(true);
     });
   }, []);
-````
+```
 
+### 4. Log-in with Google
+GoogleAuthProvider(), signInWithPopup()
+```javascript
+  const onSocialClick = async (event) => {
+    const {
+      target: { name },
+    } = event;
+    let provider;
+    if (name === "google") {
+      provider = new GoogleAuthProvider();
+    }
+
+    const data = await signInWithPopup(authService, provider);
+    console.log(data);
+  };
+```
+- signInWithPopup(auth, provider)
+- provider 는 인증 제공자로 AuthCredential 생성을 용이하게 하는 데 사용되는 인증 공급자를 나타내는 인터페이스이다. (either Google, Github, or Facebook)
 
 
