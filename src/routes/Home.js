@@ -15,25 +15,19 @@ export default function Home({ userObj }) {
   const [nweet, setNweet] = useState("");
   const [nweets, setNweets] = useState([]);
 
-  console.log(userObj);
-
-  const getNweets = async () => {
-    const dbNweets = await getDocs(query(collection(dbService, "nweets")));
-    dbNweets.forEach((document) => {
-      const newObj = {
-        ...document.data(),
-        id: document.id,
-      };
-      setNweets((prev) => [newObj, ...prev]);
-    });
-  };
-
   useEffect(() => {
-    getNweets();
-    const query = query(collection(dbService,"nweets"), orderBy('createdAt', "desc"));
-    onSnapshot(query, (snapshot) => {
-      
-    })
+    const q = query(
+      collection(dbService, "nweets"),
+      orderBy("createdAt", "desc")
+    );
+    onSnapshot(q, (snapshot) => {
+      const nweetArray = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setNweets(nweetArray);
+    });
+
   }, []);
 
   const onSubmit = async (e) => {
@@ -41,7 +35,7 @@ export default function Home({ userObj }) {
     await addDoc(collection(dbService, "nweets"), {
       text: nweet,
       createdAt: Date.now(),
-      creatorId: userObj.uid, 
+      creatorId: userObj.uid,
     });
     setNweet("");
   };
