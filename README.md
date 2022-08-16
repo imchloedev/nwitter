@@ -1,4 +1,4 @@
-# Firebase Authorzation *v9*
+# Firebase Authentication *v9*
 
 ### 1. Create New Account
 ```javascript
