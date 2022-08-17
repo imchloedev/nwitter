@@ -1,4 +1,3 @@
-import { async } from "@firebase/util";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { dbService, storageService } from "../fbase";
 import { useState } from "react";
@@ -18,7 +17,7 @@ export default function Nweet({ nweetObj, isOwner }) {
       await deleteDoc(nweetTextRef);
     }
 
-    // 삭제하려는 트윗에 이미지가 있는 경우 - 이미지 storage에서 삭제
+    // 삭제하려는 트윗에 이미지가 있는 경우 - 이미지 Storage에서 파일 삭제
     if (nweetObj.fileUrl !== "") {
       await deleteObject(ref(storageService, nweetObj.fileUrl));
     }
