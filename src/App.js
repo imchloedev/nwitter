@@ -22,18 +22,23 @@ function App() {
     });
   }, []);
 
-  // console.log(authService.currentUser);
-
-  // setInterval(() => {
-  //   console.log(authService.currentUser);
-  // }, 2000);
-
-  // 첫 출력값 null
-  // 2sec loading -> currentUser 출력값 생성
+  const refreshUser = () => {
+    const user = authService.currentUser;
+    console.log(user);
+    setUserObj({ ...user });
+  };
 
   return (
     <>
-      {init ? <Router isLoggedIn={isLoggedIn} userObj={userObj}/> : "Initializing...."}
+      {init ? (
+        <Router
+          isLoggedIn={isLoggedIn}
+          userObj={userObj}
+          refreshUser={refreshUser}
+        />
+      ) : (
+        "Initializing...."
+      )}
 
       <footer>&copy; Nwitter {new Date().getFullYear()}</footer>
     </>

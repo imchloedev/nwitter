@@ -1,16 +1,21 @@
 import { Link } from "react-router-dom";
 
-export default function Navigation() {
+export default function Navigation({ userObj }) {
   return (
     <nav>
       <ul>
         <li>
-          <Link to='/'>Home</Link>
+          <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to='/profile'>Profile</Link>
+          <Link to="/profile">
+            {userObj.displayName === null
+              ? userObj.email.split("@")[0]
+              : userObj.displayName}{" "}
+            's Profile
+          </Link>
         </li>
       </ul>
     </nav>
-  )
+  );
 }

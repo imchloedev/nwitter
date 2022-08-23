@@ -15,7 +15,6 @@ export default function Auth() {
   const [error, setError] = useState("");
 
   const onChange = (e) => {
-    console.log(e.target.name);
     const {
       target: { name, value },
     } = e;
@@ -41,7 +40,6 @@ export default function Auth() {
       } else {
         data = await signInWithEmailAndPassword(authService, email, password);
       }
-      console.log(data);
     } catch (error) {
       console.log(error.message);
       setError(error.message);
