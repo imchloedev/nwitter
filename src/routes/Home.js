@@ -34,9 +34,9 @@ export default function Home({ userObj }) {
   }, []);
 
   return (
-    <>
+    <div className="container">
       <NweetFactory userObj={userObj} />
-      <div>
+      <div style={{ marginTop: 30 }}>
         {nweets.map((element) => (
           <Nweet
             key={element.id}
@@ -45,6 +45,6 @@ export default function Home({ userObj }) {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 }

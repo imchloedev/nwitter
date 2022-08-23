@@ -3,6 +3,8 @@ import { dbService, storageService } from "../fbase";
 import { useState } from "react";
 import { deleteObject } from "firebase/storage";
 import { ref } from "firebase/storage";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
 export default function Nweet({ nweetObj, isOwner }) {
   const [editing, setEditing] = useState(false);
@@ -42,34 +44,51 @@ export default function Nweet({ nweetObj, isOwner }) {
 
   return (
     <>
-      <div key={nweetObj.id}>
+      <div key={nweetObj.id} className="nweet">
         {editing ? (
           <>
-            <form onSubmit={onSubmit}>
+            <form onSubmit={onSubmit} className="container nweetEdit">
               <input
                 type="text"
                 value={newNweet}
                 onChange={onChange}
                 required
                 placeholder="edit yout nweet"
+                autoFocus
+                className="formInput"
               />
-              <input type="submit" value="update" onClick={onUpdate} />
+              <input
+                type="submit"
+                value="update"
+                onClick={onUpdate}
+                className="formBtn"
+              />
             </form>
-            <button onClick={toggleEditing}>Cancel</button>
+            <span onClick={toggleEditing} className="formBtn cancelBtn">
+              Cancel
+            </span>
           </>
         ) : (
-          <>
-            <h4>{nweetObj.text}</h4>
-            {nweetObj.fileUrl && (
-              <img src={nweetObj.fileUrl} width="50px" height="50px" />
-            )}
+          <div>
+            <div style={{display: "flex", justifyContent:"space-between", alignItems:"center"}}>
+              <h4>{nweetObj.text}</h4>
+              {nweetObj.fileUrl && <img src={nweetObj.fileUrl} style={{
+                display: "block",
+                
+              }} />}
+            </div>
+
             {isOwner && (
-              <>
-                <button onClick={onDelete}>Delete</button>
-                <button onClick={toggleEditing}>Edit</button>
-              </>
+              <div className="nweet__actions">
+                <span onClick={onDelete}>
+                  <FontAwesomeIcon icon={faTrash} />
+                </span>
+                <span onClick={toggleEditing}>
+                  <FontAwesomeIcon icon={faPencilAlt} />
+                </span>
+              </div>
             )}
-          </>
+          </div>
         )}
       </div>
     </>

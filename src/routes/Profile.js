@@ -27,8 +27,8 @@ export default function Profile({ refreshUser, userObj }) {
   };
 
   return (
-    <>
-      <form onSubmit={onSubmit}>
+    <div className="container">
+      <form onSubmit={onSubmit} className="profileForm">
         <input
           onChange={onChange}
           type="text"
@@ -38,11 +38,21 @@ export default function Profile({ refreshUser, userObj }) {
               ? userObj.email.split("@")[0]
               : newDisplayName
           }
+          autoFocus
+          className="formInput"
         />
-        <input type="submit" value="Update Profile" />
+        <input
+          type="submit"
+          value="Update Profile"
+          className="formBtn"
+          style={{
+            marginTop: 10,
+          }}
+        />
       </form>
-      <span>Profile</span>
-      <button onClick={onLogOut}>Log Out</button>
-    </>
+      <span onClick={onLogOut} className="formBtn cancelBtn logOut">
+        Log Out
+      </span>
+    </div>
   );
 }

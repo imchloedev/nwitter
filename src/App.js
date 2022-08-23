@@ -25,7 +25,6 @@ function App() {
 
   const refreshUser = () => {
     const user = authService.currentUser;
-    console.log(user);
     setUserObj({ ...user });
   };
 
